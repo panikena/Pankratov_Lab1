@@ -64,6 +64,21 @@ namespace Pankratov_Lab1
                 Console.Write("{0:G4}\t", k);
             }
 
+
+
+            var competence = new double[] { 4.5, 8 };
+            var expertsWithCompetence = new Matrix(new double[][] {
+                                                new double[] { 0.5, 0, 0.33, 0.17},
+                                                new double[] { 0.54, 0.09, 0.2, 0.17}
+            });
+
+            delimiter();
+
+            foreach (var i in expertsWithCompetence.ExpertWithCompetence(competence))
+            {
+                Console.Write("{0:G4}\t", i);
+            }
+
             Console.ReadKey();
 
         }

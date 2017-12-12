@@ -170,8 +170,6 @@ namespace Pankratov_Lab1
             return modifiedMatrix;
         }
 
-
-
         public double[] ExpertPreferred()
         {
 
@@ -187,6 +185,66 @@ namespace Pankratov_Lab1
             }
 
             return result;
+        }
+
+        public static double[] ExpertWithCompetenceStatic(Matrix m, double[] competence)
+        {
+            double totalCompetence = 0;
+            foreach (var i in competence)
+            {
+                totalCompetence += i;
+            }
+            double[] weightenedCompetence = new double[competence.Length];
+            for(int i = 0; i < competence.Length; i++)
+            {
+                weightenedCompetence[i] = competence[i] / totalCompetence;
+            }
+
+            var result = new double[m.MatrixArray[0].Length];
+
+            for (int i = 0; i < m.MatrixArray.Length; i++)
+            {
+                for (int j = 0; j < m.MatrixArray[i].Length; j++)
+                {
+                    result[j] += weightenedCompetence[i] * m.MatrixArray[i][j];
+                }
+            }
+
+            return result;
+        }
+
+        public double[] ExpertWithCompetence(double[] competence)
+        {
+            return ExpertWithCompetenceStatic(this, competence);
+        }
+
+        public double[] RankMethod()
+        {
+            var rowSums = SumRows();
+            var normalizedMatrix = new double[MatrixArray.Length][];
+
+            for(int i = 0; i)
+
+
+            return null;
+
+
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (var row in MatrixArray)
+            {
+                foreach (var cell in row)
+                {
+                    sb.AppendFormat("{0:G4}\t", cell);
+                }
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+
         }
 
     }
