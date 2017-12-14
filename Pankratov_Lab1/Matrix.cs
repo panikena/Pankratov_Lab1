@@ -9,6 +9,15 @@ namespace Pankratov_Lab1
 {
     public class Matrix
     {
+
+        public double[] this[int i]
+        {
+            get
+            {
+                return MatrixArray[i];
+            }
+        }
+
         public double[][] MatrixArray { get; set; }
 
         public Matrix()
@@ -41,6 +50,25 @@ namespace Pankratov_Lab1
                 }
                 Console.WriteLine();
             }
+        }
+
+        public void Fill(double value)
+        {
+            for(int i = 0; i < MatrixArray.Length; i++)
+            {
+                for (int j = 0; j <  MatrixArray[i].Length; j++)
+                {
+                    MatrixArray[i][j] = value;
+                }
+            }
+        }
+
+        public double[] AlternativesFromComparisonMatrix()
+        {
+            var weights = new Matrix(new double[][] { SumRows() });
+            NormalizeByRowSum(weights);
+
+            return weights.MatrixArray[0];
         }
 
 
@@ -119,6 +147,24 @@ namespace Pankratov_Lab1
             }
 
             return sum;
+        }
+
+
+        public static void NormalizeByRowSum(Matrix m)
+        {
+            var rowSums = m.SumRows();
+            for (int i = 0; i < m.MatrixArray.Length; i++)
+            {
+                for (int j = 0; j < m.MatrixArray[i].Length; j++)
+                {
+                    m.MatrixArray[i][j] /= rowSums[i];
+                }
+            }
+        }
+
+        public void NormalizeByRowSum()
+        {
+            NormalizeByRowSum(this);
         }
 
         public Matrix Normalize()
@@ -221,22 +267,14 @@ namespace Pankratov_Lab1
         public double[] RankMethod()
         {
             var rowSums = SumRows();
-            var normalizedMatrix = new double[MatrixArray.Length][];
-
-            for (int i = 0; i < MatrixArray.Length; i++)
-            {
-                normalizedMatrix[i] = new double[MatrixArray[i].Length];
-                for (int j = 0; j < MatrixArray[i].Length; j++)
-                {
-                    normalizedMatrix[i][j] = MatrixArray[i][j] / rowSums[i];
-                }
-            }
+        
+            NormalizeByRowSum();
 
             var weightenedResult = new double[MatrixArray[0].Length];
 
-            for (int j = 0; j < normalizedMatrix[0].Length; j++)
+            for (int j = 0; j < MatrixArray[0].Length; j++)
             {
-                foreach(var row in normalizedMatrix)
+                foreach(var row in MatrixArray)
                 {
                     weightenedResult[j] += row[j];
                 }
