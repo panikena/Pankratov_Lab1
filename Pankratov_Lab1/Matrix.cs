@@ -223,12 +223,28 @@ namespace Pankratov_Lab1
             var rowSums = SumRows();
             var normalizedMatrix = new double[MatrixArray.Length][];
 
-            for(int i = 0; i)
+            for (int i = 0; i < MatrixArray.Length; i++)
+            {
+                normalizedMatrix[i] = new double[MatrixArray[i].Length];
+                for (int j = 0; j < MatrixArray[i].Length; j++)
+                {
+                    normalizedMatrix[i][j] = MatrixArray[i][j] / rowSums[i];
+                }
+            }
 
+            var weightenedResult = new double[MatrixArray[0].Length];
 
-            return null;
+            for (int j = 0; j < normalizedMatrix[0].Length; j++)
+            {
+                foreach(var row in normalizedMatrix)
+                {
+                    weightenedResult[j] += row[j];
+                }
+                weightenedResult[j] /= MatrixArray.Length;
+                
+            }
 
-
+            return weightenedResult;
         }
 
         public override string ToString()

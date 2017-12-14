@@ -79,6 +79,30 @@ namespace Pankratov_Lab1
                 Console.Write("{0:G4}\t", i);
             }
 
+
+
+
+            delimiter();
+            delimiter(); 
+            delimiter();
+
+
+            var rankMatrix = new Matrix(new double[][] {
+                new double[] { 10, 7, 9, 3, 4, 5 },
+                new double[] { 8, 6, 10, 4, 2, 7}
+            });
+
+
+            var rankResult = rankMatrix.RankMethod();
+
+
+            foreach (var i in rankResult)
+            {
+                Console.Write("{0:G4}\t", i);
+            }
+
+
+
             Console.ReadKey();
 
         }
