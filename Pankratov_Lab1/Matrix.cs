@@ -46,7 +46,7 @@ namespace Pankratov_Lab1
             {
                 foreach (var cell in row)
                 {
-                    Console.Write(cell + "\t");
+                    Console.Write("{0:G4}\t", cell);
                 }
                 Console.WriteLine();
             }
